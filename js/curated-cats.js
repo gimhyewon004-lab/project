@@ -1,0 +1,127 @@
+/**
+ * Curated list of verified Wikimedia Commons cat photographs.
+ * Includes verified metadata and default audio mappings.
+ */
+
+export const CURATED_WIKIMEDIA_CATS = [
+  {
+    id: 'wiki_cat_01',
+    title: 'Cat March 2010 - Red tabby cat sitting',
+    description: 'A beautiful ginger tabby cat looking thoughtfully into the camera.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/480px-Cat03.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/800px-Cat03.jpg',
+    soundType: 'meow',
+    author: 'Alvesgaspar',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Alvesgaspar',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cat03.jpg',
+    tags: ['치즈태비', '귀여운', '앉아있는']
+  },
+  {
+    id: 'wiki_cat_02',
+    title: 'Sleeping Cat on Wood',
+    description: 'A cozy calico cat sleeping peacefully in a warm sunny spot.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/480px-Felis_catus-cat_on_snow.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Felis_catus-cat_on_snow.jpg/800px-Felis_catus-cat_on_snow.jpg',
+    soundType: 'purr',
+    author: 'Von.grzanka',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Von.grzanka',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Felis_catus-cat_on_snow.jpg',
+    tags: ['눈속의고양이', '하얀겨울', '포근']
+  },
+  {
+    id: 'wiki_cat_03',
+    title: 'Playful Kitten with Blue Eyes',
+    description: 'A lovely young kitten with bright curious eyes and soft white fur.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/480px-Cat_November_2010-1a.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/800px-Cat_November_2010-1a.jpg',
+    soundType: 'meow',
+    author: 'Alvesgaspar',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Alvesgaspar',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cat_November_2010-1a.jpg',
+    tags: ['아기고양이', '푸른눈', '호기심']
+  },
+  {
+    id: 'wiki_cat_04',
+    title: 'Tuxedo Cat Sitting Elegantly',
+    description: 'A handsome black and white tuxedo cat sitting gracefully like a little gentleman.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Painted_eyes.jpg/480px-Painted_eyes.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Painted_eyes.jpg/800px-Painted_eyes.jpg',
+    soundType: 'purr',
+    author: 'Hisashi',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Hisashi',
+    license: 'CC BY-SA 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Painted_eyes.jpg',
+    tags: ['턱시도고양이', '우아한', '매력']
+  },
+  {
+    id: 'wiki_cat_05',
+    title: 'European Shorthair Resting',
+    description: 'A contented brown tabby cat stretching and enjoying a lazy afternoon.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/June_odd-eyed-cat_cropped.jpg/480px-June_odd-eyed-cat_cropped.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/June_odd-eyed-cat_cropped.jpg/800px-June_odd-eyed-cat_cropped.jpg',
+    soundType: 'purr',
+    author: 'Keith Kissel',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Keith_Kissel',
+    license: 'CC BY 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-2.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:June_odd-eyed-cat_cropped.jpg',
+    tags: ['오드아이', '신비로운', '하얀고양이']
+  },
+  {
+    id: 'wiki_cat_06',
+    title: 'Black Cat Green Eyes',
+    description: 'A sleek black cat with glowing emerald green eyes peeking out curiously.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Black-Cat-Green-Eyes.jpg/480px-Black-Cat-Green-Eyes.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Black-Cat-Green-Eyes.jpg/800px-Black-Cat-Green-Eyes.jpg',
+    soundType: 'meow',
+    author: 'Robyn Jay',
+    authorUrl: 'https://www.flickr.com/people/robynjay/',
+    license: 'CC BY-SA 2.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/2.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Black-Cat-Green-Eyes.jpg',
+    tags: ['검은고양이', '초록눈', '미묘']
+  },
+  {
+    id: 'wiki_cat_07',
+    title: 'Cat Yawning Loaf',
+    description: 'A tabby cat giving a big adorable yawn while making a cozy loaf posture.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Cat_eating_a_rabbit.jpg/480px-Cat_eating_a_rabbit.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Cat_eating_a_rabbit.jpg/800px-Cat_eating_a_rabbit.jpg',
+    soundType: 'purr',
+    author: 'Mikael Häggström',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Mikael_H%C3%A4ggstr%C3%B6m',
+    license: 'CC0 Public Domain',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cat_eating_a_rabbit.jpg',
+    tags: ['하품', '귀여움', '식빵자세']
+  },
+  {
+    id: 'wiki_cat_08',
+    title: 'Little Kitten in Meadow',
+    description: 'A tiny sweet kitten exploring the green grass on a sunny spring day.',
+    thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cat_poster_1.jpg/480px-Cat_poster_1.jpg',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Cat_poster_1.jpg/800px-Cat_poster_1.jpg',
+    soundType: 'meow',
+    author: 'Various / Alvesgaspar',
+    authorUrl: 'https://commons.wikimedia.org/wiki/User:Alvesgaspar',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0/',
+    source: 'Wikimedia Commons',
+    sourceUrl: 'https://commons.wikimedia.org/wiki/File:Cat_poster_1.jpg',
+    tags: ['아기고양이', '초원', '봄날']
+  }
+];

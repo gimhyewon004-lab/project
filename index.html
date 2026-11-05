@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>고양이 스티커 다이어리 • Cat Sticker Diary</title>
+  <meta name="description" content="고양이 사진을 검색해 매끈한 다이컷 스티커로 제작하고 소리와 함께 기록하는 종이 다이어리 플래너" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>" />
+</head>
+<body>
+
+  <!-- Top Navigation Header (Stationery Editorial Header) -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-wrap" onclick="window.catApp.switchTab('schedule')">
+        <span class="brand-title">고양이 스티커 다이어리</span>
+        <span class="brand-tag">Stationery Archive</span>
+      </div>
+
+      <nav class="header-nav">
+        <button class="nav-tab-btn active" data-tab="schedule">일정 플래너</button>
+        <button class="nav-tab-btn" data-tab="diary">다이어리</button>
+        <button class="nav-tab-btn" data-tab="search">고양이 찾기</button>
+        <button class="nav-tab-btn" data-tab="stickers">스티커 보관함</button>
+        <button class="nav-tab-btn" data-tab="stats">기록</button>
+      </nav>
+
+      <button type="button" class="btn-global-mute-toggle" title="전체 소리 켜기/끄기">
+        🔊 소리 켜짐
+      </button>
+    </div>
+  </header>
+
+  <!-- Main App Content -->
+  <main class="app-main-content">
+
+    <!-- ==========================================
+         VIEW 1: Schedule Planner (Ruled Planner Look)
+         ========================================== -->
+    <section id="view-schedule" class="app-screen-view active">
+      <div class="planner-date-bar">
+        <div style="display: flex; gap: 6px;">
+          <button id="sched-prev-date-btn" class="btn btn-secondary btn-sm">이전날</button>
+          <button id="sched-today-btn" class="btn btn-outline btn-sm">오늘</button>
+          <button id="sched-next-date-btn" class="btn btn-secondary btn-sm">다음날</button>
+        </div>
+        <div class="planner-date-title" id="sched-current-date-text">2026.11.05 (THU)</div>
+        <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+          달력 보기
+          <input type="date" id="sched-date-picker" style="position: absolute; opacity: 0; width: 0; pointer-events: none;" />
+        </label>
+      </div>
+
+      <div class="schedule-layout-grid">
+        <!-- Left Column: Daily Progress -->
+        <aside>
+          <div class="progress-overview-box">
+            <div class="progress-header-row">
+              <span class="progress-label-text">오늘의 달성률</span>
+              <span class="progress-pct-text" id="daily-pct-number">0%</span>
+            </div>
+            <div class="progress-track-line">
+              <div class="progress-fill-line" id="daily-progress-bar-fill" style="width: 0%"></div>
+            </div>
+            <div class="progress-cheer-text">
+              <span id="daily-cheer-message">일정을 추가하고 완료해 보세요.</span>
+              <span id="daily-task-count-text">0 / 0</span>
+            </div>
+          </div>
+
+          <div class="paper-sheet-card" style="padding: 16px;">
+            <h4 style="font-size: 13px; font-weight: 700; margin-bottom: 6px;">스티커 보상</h4>
+            <p style="font-size: 12px; color: var(--ink-secondary); line-height: 1.5; margin-bottom: 12px;">
+              일정을 완료할 때마다 위키미디어 커먼즈에서 인증된 새로운 고양이 스티커 1개가 소리와 함께 지급됩니다.
+            </p>
+            <button class="btn btn-secondary btn-sm" style="width: 100%;" onclick="window.catApp.switchTab('stickers')">
+              스티커 보관함 열기
+            </button>
+          </div>
+        </aside>
+
+        <!-- Right Column: Task Checklist -->
+        <div>
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">일정 목록</h2>
+              <span class="section-caption">체크박스를 눌러 완료하면 스티커 보상이 지급됩니다.</span>
+            </div>
+            <button id="btn-open-add-task" class="btn btn-primary btn-sm">+ 새 일정 추가</button>
+          </div>
+
+          <div id="task-list-container" class="task-list">
+            <!-- Populated via script -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 2: Diary Scrapbook & Desk
+         ========================================== -->
+    <section id="view-diary" class="app-screen-view">
+      <div class="diary-desk-wrapper">
+        <div class="diary-control-strip">
+          <div class="diary-controls-left">
+            <div class="control-item-group">
+              <button id="diary-prev-date-btn" class="btn btn-secondary btn-sm">◀</button>
+              <span id="diary-current-date-display" style="font-weight: 700; font-size: 13px;">2026.11.05</span>
+              <button id="diary-next-date-btn" class="btn btn-secondary btn-sm">▶</button>
+              <input type="date" id="diary-date-picker" style="position: absolute; opacity: 0; width: 0; pointer-events: none;" />
+            </div>
+
+            <div class="control-item-group">
+              <span class="control-item-label">속지:</span>
+              <button class="paper-theme-btn active" data-theme="cream">크림</button>
+              <button class="paper-theme-btn" data-theme="grid">모눈</button>
+              <button class="paper-theme-btn" data-theme="lines">줄노트</button>
+              <button class="paper-theme-btn" data-theme="rose">로즈</button>
+            </div>
+
+            <div class="control-item-group">
+              <span class="control-item-label">날씨:</span>
+              <button class="weather-select-btn active" data-weather="sunny">맑음</button>
+              <button class="weather-select-btn" data-weather="cloudy">흐림</button>
+              <button class="weather-select-btn" data-weather="rainy">비</button>
+              <button class="weather-select-btn" data-weather="snowy">눈</button>
+            </div>
+
+            <div class="control-item-group">
+              <span class="control-item-label">기분:</span>
+              <button class="mood-select-btn active" data-mood="calm">차분</button>
+              <button class="mood-select-btn" data-mood="happy">행복</button>
+              <button class="mood-select-btn" data-mood="focused">집중</button>
+              <button class="mood-select-btn" data-mood="sleepy">피곤</button>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 6px;">
+            <button id="btn-open-sticker-drawer" class="btn btn-secondary btn-sm">스티커 꺼내기</button>
+            <button id="btn-clear-diary-stickers" class="btn btn-secondary btn-sm" title="스티커 비우기">초기화</button>
+            <button id="btn-export-diary-image" class="btn btn-primary btn-sm">이미지 저장</button>
+          </div>
+        </div>
+
+        <div class="diary-board-wrapper">
+          <div id="diary-canvas-board" class="diary-board theme-cream">
+            <div class="diary-text-container">
+              <input type="text" id="diary-title-input" class="diary-title-input" placeholder="오늘의 다이어리 제목" />
+              <textarea id="diary-content-input" class="diary-content-input" placeholder="오늘 있었던 일과 생각들을 편안하게 적어보세요. 스티커를 탭하면 고양이 소리가 납니다..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 3: Search Cat Stickers (Wikimedia Commons)
+         ========================================== -->
+    <section id="view-search" class="app-screen-view">
+      <div class="paper-sheet-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">고양이 사진 검색</h2>
+            <span class="section-caption">공개 라이선스 고양이 사진을 검색해 매끈한 다이컷 스티커로 제작합니다.</span>
+          </div>
+        </div>
+
+        <form id="cat-search-form" class="search-box-wrap">
+          <input type="text" id="cat-search-input" class="search-input" placeholder="검색어 입력 (예: 귀여운 고양이, 치즈태비, kitten, cat loaf...)" value="귀여운 고양이" />
+          <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+
+        <div class="search-tag-chips">
+          <button type="button" class="cat-search-tag-chip" data-query="귀여운 고양이">귀여운 고양이</button>
+          <button type="button" class="cat-search-tag-chip" data-query="잠자는 고양이">잠자는 고양이</button>
+          <button type="button" class="cat-search-tag-chip" data-query="치즈태비">치즈태비</button>
+          <button type="button" class="cat-search-tag-chip" data-query="아기고양이">아기고양이</button>
+          <button type="button" class="cat-search-tag-chip" data-query="턱시도">턱시도 고양이</button>
+          <button type="button" class="cat-search-tag-chip" data-query="식빵">식빵 자세</button>
+          <button type="button" class="cat-search-tag-chip" data-query="검은고양이">검은 고양이</button>
+        </div>
+
+        <div id="search-error-banner" class="info-banner-clean" style="display: none;"></div>
+
+        <div class="info-banner-clean">
+          <strong>위키미디어 커먼즈(Wikimedia Commons) 제공:</strong> 모든 이미지는 이용 조건과 저작자가 명확한 공개 라이선스 미디어입니다. 출처와 저작자 정보는 스티커에 함께 저장됩니다.
+        </div>
+
+        <div id="search-loading-spinner" style="display: none; justify-content: center; padding: 30px; font-size: 13px; color: var(--ink-secondary);">
+          고양이 사진을 검색하고 있습니다...
+        </div>
+
+        <div id="cat-search-results-grid" class="cat-results-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 4: Sticker Box
+         ========================================== -->
+    <section id="view-stickers" class="app-screen-view">
+      <div class="paper-sheet-card">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">스티커 보관함</h2>
+            <span class="section-caption">모아둔 고양이 스티커 모음입니다. 카드를 눌러 소리를 미리 들을 수 있습니다.</span>
+          </div>
+          <span id="sticker-box-total-count" style="font-size: 12px; font-weight: 600; color: var(--ink-secondary);">0 stickers</span>
+        </div>
+
+        <div class="filter-chip-group">
+          <button class="sticker-box-filter-btn active" data-filter="all">전체</button>
+          <button class="sticker-box-filter-btn" data-filter="cutout">다이컷 스티커</button>
+          <button class="sticker-box-filter-btn" data-filter="reward">보상 획득</button>
+        </div>
+
+        <div id="sticker-box-grid" class="sticker-box-grid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         VIEW 5: Stats & Archive
+         ========================================== -->
+    <section id="view-stats" class="app-screen-view">
+      <div class="stats-summary-strip">
+        <div class="stat-item-box">
+          <div class="stat-num-val" id="stats-streak-count">0일 연속</div>
+          <div class="stat-name-label">현재 연속 일정 달성</div>
+        </div>
+        <div class="stat-item-box">
+          <div class="stat-num-val" id="stats-week-total-count">0개</div>
+          <div class="stat-name-label">최근 7일간 완료한 할 일</div>
+        </div>
+      </div>
+
+      <div class="paper-sheet-card">
+        <div class="section-head">
+          <h2 class="section-title">최근 7일간의 기록</h2>
+          <span class="section-caption">날짜를 선택하면 해당 일자로 이동합니다.</span>
+        </div>
+
+        <div id="stats-7days-chart-grid" class="stats-7days-chart-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       Sticker Drawer (Inside Diary View)
+       ========================================== -->
+  <div id="diary-sticker-drawer" class="diary-sticker-drawer">
+    <div class="drawer-header">
+      <h3 style="font-size: 14px; font-weight: 700;">보관함에서 스티커 선택</h3>
+      <button id="btn-close-sticker-drawer" class="btn-text-action" style="font-size: 16px;">✕</button>
+    </div>
+    <div id="diary-drawer-stickers-grid" class="drawer-stickers-grid"></div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 1: Add & Edit Task
+       ========================================== -->
+  <div id="task-modal" class="app-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="task-modal-title" class="modal-title">새 일정 작성</h3>
+        <button class="btn-text-action" onclick="window.catApp.closeTaskModal()">✕</button>
+      </div>
+      <form id="task-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="task-input-title">일정 내용 *</label>
+            <input type="text" id="task-input-title" class="form-control" placeholder="할 일을 입력하세요" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="task-input-date">날짜</label>
+              <input type="date" id="task-input-date" class="form-control" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="task-input-time">시간 (선택)</label>
+              <input type="time" id="task-input-time" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="task-input-category">카테고리</label>
+              <select id="task-input-category" class="form-control">
+                <option value="cat">고양이 돌보기</option>
+                <option value="work">업무</option>
+                <option value="study">공부</option>
+                <option value="workout">운동</option>
+                <option value="daily" selected>일상</option>
+                <option value="hobby">취미</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="task-input-priority">중요도</label>
+              <select id="task-input-priority" class="form-control">
+                <option value="high">높음</option>
+                <option value="medium" selected>보통</option>
+                <option value="low">낮음</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" id="btn-cancel-task" class="btn btn-secondary">취소</button>
+          <button type="submit" class="btn btn-primary">저장하기</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 2: Sticker Studio Modal (Die-cut & Sound)
+       ========================================== -->
+  <div id="studio-modal" class="app-modal">
+    <div class="modal-dialog" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">스티커 만들기 스튜디오</h3>
+        <button id="btn-close-studio" class="btn-text-action">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Live Preview -->
+        <div class="studio-preview-box">
+          <img id="studio-preview-img" src="" alt="스티커 미리보기" />
+          <div id="studio-loading-overlay" class="studio-loading-overlay" style="display: none;">
+            <span>다이컷 실루엣 생성 중...</span>
+          </div>
+        </div>
+
+        <!-- Failure Banner (Requirement: Do not force ugly rectangle border) -->
+        <div id="studio-error-box" class="studio-error-banner" style="display: none;">
+          <strong>배경 분리 오류:</strong>
+          <p id="studio-error-reason" style="margin: 4px 0 8px;"></p>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" id="btn-studio-retry-cutout" class="btn btn-sm btn-secondary">다시 시도</button>
+            <button type="button" id="btn-studio-use-framed" class="btn btn-sm btn-outline">프레임 스티커로 제작</button>
+          </div>
+        </div>
+
+        <!-- Style Options -->
+        <label class="form-label">스티커 표현 형식:</label>
+        <div class="studio-style-picker">
+          <button type="button" class="studio-style-btn active" data-style="cutout">다이컷 실루엣 (두꺼운 흰색 외곽선)</button>
+          <button type="button" class="studio-style-btn" data-style="polaroid">폴라로이드 프레임</button>
+          <button type="button" class="studio-style-btn" data-style="circle">원형 뱃지</button>
+          <button type="button" class="studio-style-btn" data-style="rounded">사각 스냅</button>
+        </div>
+
+        <!-- Cutout Tolerance Slider -->
+        <div id="studio-tolerance-group" style="margin-bottom: 14px; background: #FAF8F4; padding: 10px 12px; border-radius: 4px; border: 1px solid var(--border-line);">
+          <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 4px;">
+            <span>배경 분리 감도 (Tolerance):</span>
+            <span id="studio-tolerance-val" style="font-weight: 700;">44</span>
+          </div>
+          <input type="range" id="studio-tolerance-slider" min="15" max="75" value="44" style="width: 100%; accent-color: var(--ink-primary);" />
+          <div style="font-size: 11px; color: var(--ink-tertiary); margin-top: 3px;">
+            모서리가 자연스럽게 둥글고 매끈한 12px 흰색 다이컷 외곽선이 둘러집니다.
+          </div>
+        </div>
+
+        <!-- Sound Selection Section (New Feature) -->
+        <div style="margin-bottom: 14px;">
+          <label class="form-label">고양이 소리 선택 (사용자가 직접 선택):</label>
+          <div class="sound-selector-grid">
+            <div class="sound-option-card is-selected" data-sound="meow">
+              <div>
+                <div class="sound-meta-title">야옹 (Meow)</div>
+                <div style="font-size: 10px; color: var(--ink-tertiary);">맑은 울음소리</div>
+              </div>
+              <button type="button" class="btn-sound-preview" title="미리듣기">▶ 미리듣기</button>
+            </div>
+
+            <div class="sound-option-card" data-sound="purr">
+              <div>
+                <div class="sound-meta-title">골골송 (Purr)</div>
+                <div style="font-size: 10px; color: var(--ink-tertiary);">편안한 진동음</div>
+              </div>
+              <button type="button" class="btn-sound-preview" title="미리듣기">▶ 미리듣기</button>
+            </div>
+
+            <div class="sound-option-card" data-sound="hiss">
+              <div>
+                <div class="sound-meta-title">하악질 (Hiss)</div>
+                <div style="font-size: 10px; color: var(--ink-tertiary);">경계 쉭 소리</div>
+              </div>
+              <button type="button" class="btn-sound-preview" title="미리듣기">▶ 미리듣기</button>
+            </div>
+
+            <div class="sound-option-card" data-sound="none">
+              <div>
+                <div class="sound-meta-title">무음 (Mute)</div>
+                <div style="font-size: 10px; color: var(--ink-tertiary);">소리 없음</div>
+              </div>
+              <button type="button" class="btn-sound-preview" style="visibility: hidden;">-</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Name Input -->
+        <div class="form-group">
+          <label class="form-label" for="studio-sticker-name-input">스티커 이름</label>
+          <input type="text" id="studio-sticker-name-input" class="form-control" placeholder="스티커 이름을 입력하세요" />
+        </div>
+
+        <!-- Attribution Info -->
+        <div style="font-size: 11px; color: var(--ink-tertiary); background: #FAF8F4; padding: 8px 10px; border-radius: 4px; line-height: 1.5; border: 1px solid var(--border-line);">
+          <div>작가: <span id="studio-meta-author">-</span> • 라이선스: <span id="studio-meta-license">-</span></div>
+          <div>출처: <a id="studio-meta-source" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--ink-primary); text-decoration: underline;">Wikimedia Commons</a></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="window.catApp.closeStudioModal()">닫기</button>
+        <button type="button" id="btn-studio-save-sticker" class="btn btn-primary">스티커로 추가</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 3: Reward Celebration Modal
+       ========================================== -->
+  <div id="reward-modal" class="app-modal">
+    <div class="modal-dialog" style="max-width: 420px;">
+      <div class="modal-body reward-dialog-box">
+        <h3 style="font-size: 18px; font-weight: 700; color: var(--accent-vermilion); margin-bottom: 4px;">
+          일정 달성 보상
+        </h3>
+        <p style="font-size: 13px; color: var(--ink-secondary); margin-bottom: 12px;">
+          '<span id="reward-task-title" style="font-weight: 700; color: var(--ink-primary);">할 일</span>' 일정을 완료하여<br />
+          새로운 고양이 스티커 1개를 획득했습니다.
+        </p>
+
+        <div class="reward-sticker-preview-wrap">
+          <img id="reward-sticker-img" src="" alt="보상 스티커" />
+        </div>
+
+        <h4 id="reward-sticker-name" style="font-size: 15px; font-weight: 700; margin-bottom: 2px;">고양이 스티커</h4>
+        <div style="font-size: 12px; color: var(--accent-vermilion); font-weight: 600; margin-bottom: 8px;">
+          소리: <span id="reward-sticker-sound-text">야옹 (Meow)</span>
+        </div>
+        <div style="font-size: 11px; color: var(--ink-tertiary); margin-bottom: 18px;">
+          작가: <span id="reward-sticker-author">-</span> • <span id="reward-sticker-license">-</span>
+          <br />
+          <a id="reward-sticker-source-link" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--ink-secondary); text-decoration: underline;">위키미디어 출처 확인</a>
+        </div>
+
+        <div style="display: flex; gap: 8px; justify-content: center;">
+          <button type="button" id="btn-close-reward-modal" class="btn btn-secondary">보관함에 보관</button>
+          <button type="button" id="btn-reward-place-now" class="btn btn-primary">다이어리에 붙이기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       MODAL 4: License & Attribution Info Modal
+       ========================================== -->
+  <div id="license-modal" class="app-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">스티커 및 음원 출처 정보</h3>
+        <button id="btn-close-license-modal" class="btn-text-action">✕</button>
+      </div>
+      <div class="modal-body" style="font-size: 13px; line-height: 1.6;">
+        <h4 id="lic-modal-title" style="font-size: 15px; font-weight: 700; margin-bottom: 8px;">스티커 제목</h4>
+        <p><strong>사진 저작자:</strong> <span id="lic-modal-author">Wikimedia Contributor</span></p>
+        <p><strong>사진 라이선스:</strong> <span id="lic-modal-license">Creative Commons</span></p>
+        <p><strong>사진 출처 페이지:</strong> <br /><a id="lic-modal-source" href="#" target="_blank" rel="noopener noreferrer" style="color: var(--ink-primary); text-decoration: underline; word-break: break-all;">출처 링크</a></p>
+        
+        <div id="lic-modal-sound-info"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="document.getElementById('license-modal').classList.remove('is-open')">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav">
+    <button class="nav-tab-btn active" data-tab="schedule">일정</button>
+    <button class="nav-tab-btn" data-tab="diary">다이어리</button>
+    <button class="nav-tab-btn" data-tab="search">고양이찾기</button>
+    <button class="nav-tab-btn" data-tab="stickers">보관함</button>
+    <button class="nav-tab-btn" data-tab="stats">기록</button>
+  </nav>
+
+  <!-- Global Toast -->
+  <div id="app-toast" class="app-toast"></div>
+
+  <!-- Standalone Script Bundle -->
+  <script src="js/bundle.js"></script>
+</body>
+</html>
